@@ -54,3 +54,6 @@ class Technologie(models.Model):
 
     def __str__(self):
         return f"{self.get_tech_display()}"
+    
+    class Meta: 
+        ordering = ['-tech']
