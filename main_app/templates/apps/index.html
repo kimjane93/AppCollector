@@ -1,25 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% block content %}
 
 <h1>App List</h1>
 
-{% if apps_list %}
+
 {% for app in apps %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{cat.name}}</span>
-            <p>Name of the App: {{app.name}}</p>
-            <p>Description: {{app.description}}</p>
-            {% if app.built == True %}
-                <p>Cross This One Off The To Code List!</p>
-            {% else %}
-                <p>Have You Coded Today? No? Try Building This App!</p>
-            {% endif %}
-        </div>
+<div class="card">
+  <a href="{% url 'detail' app.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ app.name }}</span>
+      <p>Description: {{ app.description }}</p>
+      {% if app.built %}
+      <p>Cross This One Off The To Code List!</p>
+      {% else %}
+      <p>Have You Coded Today? No? Try Building This App!</p>
+      {% endif %}
     </div>
+  </a>
+</div>
 {% endfor %}
-{% else %}
-    <h1>Someone Forgot To Have Some Good App Ideas</h1>
-{% endif %}
 
 {% endblock %}
