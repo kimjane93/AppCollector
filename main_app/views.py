@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import App
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
@@ -21,3 +21,11 @@ def apps_detail(request, app_id):
 class AppCreate(CreateView):
     model = App
     fields = '__all__'
+
+class AppUpdate(UpdateView):
+    model = App
+    fields = '__all__'
+
+class AppDelete(DeleteView):
+    model = App
+    succes_url = '/apps/'
