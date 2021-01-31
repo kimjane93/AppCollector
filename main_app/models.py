@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 TECHNOLOGIES  = (
@@ -21,14 +22,26 @@ TECHNOLOGIES  = (
     ('PTMN', 'Postman')
 )
 
+BUILD_STATUS = (
+    ('B', 'Built'),
+    ('NB', 'Not Built')
+)
 
 class App(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=500)
-    built = models.BooleanField(default=False)
+    built = models.CharField(
+        max_length=2, 
+        choices=BUILD_STATUS,
+        default=BUILD_STATUS[1][0]
+    )
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'app_id': self.id})
+
 
 class Technologie(models.Model):
     tech = models.CharField(
