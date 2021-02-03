@@ -42,6 +42,16 @@ class Technologie(models.Model):
     def get_absolute_url(self):
         return reverse('technologies_detail', kwargs={'pk': self.id})
 
+
+class Note(models.Model):
+    message = models.CharField(max_length=500)
+
+    app = models.ForeignKey(App, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.message
+
+
 class App(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=500)
