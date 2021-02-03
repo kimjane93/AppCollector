@@ -15,12 +15,15 @@
         {{form.as_table}}
 
     </table>
-    <input type="submit" value="Create App!"  class="btn">
+    <input type="submit" value="Submit!"  class="btn">
 </form>
 
 <script>
     var selectEl = document.getElementById('id_built');
     M.FormSelect.init(selectEl);
+
+    var selectedEl = document.getElementById('id_tech');
+M.FormSelect.init(selectedEl);
     </script>
 
 

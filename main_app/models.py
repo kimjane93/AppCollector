@@ -27,6 +27,21 @@ BUILD_STATUS = (
     ('NB', 'Not Built')
 )
 
+class Technologie(models.Model):
+    name = models.CharField(
+        # max_length=4, 
+        # choices=TECHNOLOGIES,
+        # default=TECHNOLOGIES[0][0]
+        max_length=50, 
+        default=''
+    )
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('technologies_detail', kwargs={'pk': self.id})
+
 class App(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=500)
@@ -35,6 +50,7 @@ class App(models.Model):
         choices=BUILD_STATUS,
         default=BUILD_STATUS[1][0]
     )
+    tech = models.ManyToManyField(Technologie)
 
     def __str__(self):
         return self.name
@@ -43,17 +59,3 @@ class App(models.Model):
         return reverse('detail', kwargs={'app_id': self.id})
 
 
-class Technologie(models.Model):
-    tech = models.CharField(
-        max_length=4, 
-        choices=TECHNOLOGIES,
-        default=TECHNOLOGIES[0][0]
-    )
-    
-    app = models.ForeignKey(App, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.get_tech_display()}"
-    
-    class Meta: 
-        ordering = ['-tech']

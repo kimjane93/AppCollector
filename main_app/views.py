@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import App
+from .models import App, Technologie
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import TechnologieForm
+from django.views.generic import ListView, DetailView
 
 
 # Create your views here.
@@ -17,22 +17,12 @@ def apps_index(request):
 
 def apps_detail(request, app_id):
     app = App.objects.get(id=app_id)
-    technologie_form = TechnologieForm()
-    return render(request, 'apps/detail.html', {'app': app, 'technologie_form': technologie_form})
+    return render(request, 'apps/detail.html', {'app': app})
 
-def add_technologie(request, app_id):
-    form = TechnologieForm(request.POST)
-     # validate the form
-    if form.is_valid():
-        # don't save form to the db until you manually ad teh cat id to it sinc ethere is no built in field for that
-        new_technologie = form.save(commit=False)
-        new_technologie.app_id = app_id
-        new_technologie.save()
-    return redirect('detail', app_id=app_id)
 
 class AppCreate(CreateView):
     model = App
-    fields = '__all__'
+    fields = ['name', 'description']
 
 class AppUpdate(UpdateView):
     model = App
@@ -41,3 +31,17 @@ class AppUpdate(UpdateView):
 class AppDelete(DeleteView):
     model = App
     succes_url = '/apps/'
+
+class TechnologieList(ListView):
+    model = Technologie
+
+class TechnologieDetail(DetailView):
+    model = Technologie
+
+class TechnologieCreate(CreateView):
+    model = Technologie
+    fields = '__all__'
+
+class TechnologieDelete(DeleteView):
+    model = Technologie
+    success_url = '/technologies/'

@@ -12,4 +12,9 @@ body {
     padding-top: 0;
     text-align: right;
   }
+
+#pooh{
+  align-items: center;
+  text-align: center;
+}
   

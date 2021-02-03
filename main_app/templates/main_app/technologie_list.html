@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Tech List</h1>
+
+{% for toy in toy_list %}
+  <a href="{% url 'technologies_detail' technologie.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ technologie.get_tech_display }}</span>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
