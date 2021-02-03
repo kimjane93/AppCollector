@@ -10,7 +10,7 @@
     <div class="card-content">
       <span class="card-title">{{ app.name }}</span>
       <p>Description: {{ app.description }}</p>
-      {% if app.built %}
+      {% if app.built == 'Built' %}
       <p>Cross This One Off The To Code List!</p>
       {% else %}
       <p>Have You Coded Today? No? Try Building This App!</p>

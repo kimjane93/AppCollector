@@ -17,8 +17,16 @@ def apps_index(request):
 
 def apps_detail(request, app_id):
     app = App.objects.get(id=app_id)
+    technologies_app_doesnt_have = Technologie.objects.exclude(id__in = app.tech.all().values_list('id'))
+    return render(request, 'apps/detail.html', {
+    'app': app, 'technologies': technologies_app_doesnt_have,
+    # Add the toys to be displayed
+    })
     return render(request, 'apps/detail.html', {'app': app})
 
+def assoc_technologie(request, app_id, technologie_id):
+    App.objects.get(id=app_id).tech.add(technologie_id)
+    return redirect('detail', app_id=app_id)
 
 class AppCreate(CreateView):
     model = App
@@ -26,7 +34,7 @@ class AppCreate(CreateView):
 
 class AppUpdate(UpdateView):
     model = App
-    fields = '__all__'
+    fields = ['name', 'description', 'built']
 
 class AppDelete(DeleteView):
     model = App
