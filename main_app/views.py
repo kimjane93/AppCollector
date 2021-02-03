@@ -17,7 +17,7 @@ def about(request):
 @login_required
 def apps_index(request):
     # apps = App.objects.all()
-    cats = Cat.objects.filter(user=request.user)
+    apps = App.objects.filter(user=request.user)
     return render(request, 'apps/index.html', {'apps': apps})
 
 @login_required
@@ -50,7 +50,7 @@ def signup(request):
     if request.method == 'POST':
     # This is how to create a 'user' form object
     # that includes the data from the browser
-    form = UserCreationForm(request.POST)
+        form = UserCreationForm(request.POST)
     if form.is_valid():
         # This will add the user to the database
         user = form.save()
