@@ -9,6 +9,7 @@ urlpatterns = [
     path('apps/create/', views.AppCreate.as_view(), name='apps_create'),
     path('apps/<int:pk>/update', views.AppUpdate.as_view(), name='apps_update'),
     path('apps/<int:pk>/delete', views.AppDelete.as_view(), name='apps_delete'),
+    path('apps/<int:app_id>/add_note/', views.add_note, name='add_note'),
     path('apps/<int:app_id>/assoc_technologie/<int:technologie_id>/', views.assoc_technologie, name='assoc_technologie'),
     path('technologies/', views.TechnologieList.as_view(), name='technologies_index'),
     path('technologies/<int:pk>/', views.TechnologieDetail.as_view(), name='technologies_detail'),

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import App, Technologie
+from .models import App, Technologie, Note
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-
+from .forms import NoteForm
 
 # Create your views here.
 def home(request):
@@ -17,15 +17,24 @@ def apps_index(request):
 
 def apps_detail(request, app_id):
     app = App.objects.get(id=app_id)
+    note_form = NoteForm()
     technologies_app_doesnt_have = Technologie.objects.exclude(id__in = app.tech.all().values_list('id'))
     return render(request, 'apps/detail.html', {
     'app': app, 'technologies': technologies_app_doesnt_have,
-    # Add the toys to be displayed
+    'note_form': note_form
     })
-    return render(request, 'apps/detail.html', {'app': app})
+    return render(request, 'apps/detail.html', {'app': app, 'note_form': note_form})
 
 def assoc_technologie(request, app_id, technologie_id):
     App.objects.get(id=app_id).tech.add(technologie_id)
+    return redirect('detail', app_id=app_id)
+
+def add_note(request, app_id):
+    form = NoteForm(request.POST)
+    if form.is_valid():
+        new_note = form.save(commit=False)
+        new_note.app_id = app_id
+        new_note.save()
     return redirect('detail', app_id=app_id)
 
 class AppCreate(CreateView):

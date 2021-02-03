@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import Technologie
+from .models import Note
 
-# class TechnologieForm(ModelForm):
-#     class Meta: 
-#         model = Technologie
-#         fields = ['tech']
+class NoteForm(ModelForm):
+    class Meta: 
+        model = Note
+        fields = ['message']
