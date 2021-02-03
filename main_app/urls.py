@@ -15,4 +15,5 @@ urlpatterns = [
     path('technologies/<int:pk>/', views.TechnologieDetail.as_view(), name='technologies_detail'),
     path('technologies/create/', views.TechnologieCreate.as_view(), name='technologies_create'),
     path('technologies/<int:pk>/delete', views.TechnologieDelete.as_view(), name='technologies_delete'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]
